@@ -34,6 +34,8 @@
         <link rel="stylesheet" href='{% static "crowdfunding/assets/css/owl.transitions.css" %}' >
         <link rel="stylesheet" href='{% static "crowdfunding/assets/css/style.css" %}' >
         <link rel="stylesheet" href='{% static "crowdfunding/assets/css/responsive.css" %}' >
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     </head>
     <body>
         <header>
@@ -54,44 +56,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/index"><img src=' {% static "crowdfunding/assets/img/logo.png"%}' alt=""></a>
+                    <a class="navbar-brand" href="/index"><img src=' {% static "crowdfunding/assets/img/header-logo.png"%}' alt=""></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse yamm" id="navigation">
                     <div class="button navbar-right">
-                        <button class="navbar-btn nav-button wow bounceInRight login" onclick=" window.open('register.html')" data-wow-delay="0.45s">Login</button>
-                        <button class="navbar-btn nav-button wow fadeInRight" onclick=" window.open('submit-property.html')" data-wow-delay="0.48s">Submit</button>
+                        <button class="navbar-btn nav-button wow bounceInRight login" onclick=" window.open('registerLogin')" data-wow-delay="0.45s">로그인</button>
+                        <button class="navbar-btn nav-button wow fadeInRight" onclick=" window.open('changePassword')" data-wow-delay="0.48s">비밀번호 변경</button>
                     </div>
                     <ul class="main-nav nav navbar-nav navbar-right">
-                        <li class="dropdown ymm-sw " data-wow-delay="0.1s">
-                            <a href="/index" class="dropdown-toggle active" data-toggle="dropdown" data-hover="dropdown" data-delay="200">홈 <b class="caret"></b></a>
-                            <ul class="dropdown-menu navbar-nav">
-                                <li>
-                                    <a href="/index">Index</a>
-                                </li>
-                                 <li>
-                                    <a href="/showProjects">Show all Projects</a>
-                                </li>
-                                <li>
-                                    <a href="/introProject">Introduce this Project</a>
-                                </li>
-                                <li>
-                                    <a href="/registerLogin">Register & Login</a>
-                                </li>
-                                <li>
-                                    <a href="/changePassword">Change Password</a>
-                                </li>
-                                <li>
-                                    <a href="/userProfile">User's Profile</a>
-                                </li>
-                                <li>
-                                    <a href="/userProjects">User's Projects</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="wow fadeInDown" data-wow-delay="0.2s"><a class="" href="/showProjects">프로젝트</a></li>
-                        <li class="dropdown ymm-sw " data-wow-delay="0.3s">
+                        <li class="wow fadeInDown" data-wow-delay="0.1.5s"><a class="" href="/showProjects">프로젝트</a></li>
+                        <li class="dropdown ymm-sw " data-wow-delay="0.24s">
                             <a href="/userProfile" class="" data-toggle="dropdown" data-hover="dropdown" data-delay="200">유저 <b class="caret"></b></a>
                             <ul class="dropdown-menu navbar-nav">
 
@@ -124,8 +100,20 @@
                                 <h4>About us </h4>
                                 <div class="footer-title-line"></div>
 
-                                <img src="assets/img/footer-logo.png" alt="" class="wow pulse" data-wow-delay="1s">
-                                <p>크라우드 펀딩 플랫폼 제공 웹사이트입니다. 해당 사이트는 프로젝트의 당사자가 아니며, 직접적인 통신판매를 진행하지 않습니다. 프로젝트의 완수 및 선물제공의 책임은 해당 프로젝트의 창작자에게 있으며, 프로젝트와 관련하여 후원자와 발생하는 법적 분쟁에 대한 책임은 해당 창작자가 부담합니다.</p>
+                                <img src='{% static "crowdfunding/assets/img/footer-logo.png"%}' alt="" class="wow pulse" data-wow-delay="1s">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 wow fadeInRight animated">
+                            <div class="single-footer">
+                                <h4>Text for</h4>
+                                <div class="footer-title-line"></div>
+                                <p>크라우드 펀딩 플랫폼 제공 웹사이트 CrowdFUNding 입니다. 모든 프로젝트의 완수 및 선물제공의 책임은 해당 프로젝트의 창작자에게 있습니다.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 wow fadeInRight animated">
+                            <div class="single-footer">
+                                <h4>In touch</h4>
+                                <div class="footer-title-line"></div>
                                 <ul class="footer-adress">
                                     <li><i class="pe-7s-map-marker strong"> </i> 대전국립한밭대학교 </li>
                                     <li><i class="pe-7s-mail strong"> </i> parkmj236@gmail.com</li>
@@ -134,27 +122,14 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 wow fadeInRight animated">
-                            <div class="single-footer">
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 wow fadeInRight animated">
-                            <div class="single-footer">
-
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 wow fadeInRight animated">
                             <div class="single-footer news-letter">
-                                <h4>Stay in touch</h4>
+                                <h4>Link in Github</h4>
                                 <div class="footer-title-line"></div>
-                                <p>Lorem ipsum dolor sit amet, nulla  suscipit similique quisquam molestias. Vel unde, blanditiis.</p>
+                                <p>다음 아이콘을 누르시면 CrowdFUNding 프로젝트의 깃허브 주소로 연결됩니다.</p>
 
                                 <div class="social pull-right">
                                     <ul>
-                                        <li><a class="wow fadeInUp animated" href="https://github.com/Park-New-project"><i class="fa fa-github"></i></a></li>
-                                        <li><a class="wow fadeInUp animated" href="https://www.facebook.com/kimarotec" data-wow-delay="0.2s"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a class="wow fadeInUp animated" href="https://plus.google.com/kimarotec" data-wow-delay="0.3s"><i class="fa fa-google-plus"></i></a></li>
-                                        <li><a class="wow fadeInUp animated" href="https://instagram.com/kimarotec" data-wow-delay="0.4s"><i class="fa fa-instagram"></i></a></li>
-                                        <li><a class="wow fadeInUp animated" href="https://instagram.com/kimarotec" data-wow-delay="0.6s"><i class="fa fa-dribbble"></i></a></li>
+                                        <li><a class="wow fadeInUp animated" href="https://github.com/Park-New-project/cfWeb01"><i class="fa fa-github"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
