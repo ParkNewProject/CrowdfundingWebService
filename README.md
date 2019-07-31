@@ -1,5 +1,5 @@
 # cfWeb01
-~version~<br>
+{version}<br>
 언어 = python 3.6.7<br>
 프레임워크 = django 2.2.3 (django-admin 1.11.11)<br><br>
 
