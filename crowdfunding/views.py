@@ -1,24 +1,31 @@
 from django.shortcuts import render
+from .forms import RegisterForm
+
 
 def index(request):
     return render(request, 'crowdfunding/index.html')
 
-def showProjects(request):
+
+def showprojects(request):
     return render(request, 'crowdfunding/showProjects.html')
 
-def introProject(request):
+
+def introproject(request):
     return render(request, 'crowdfunding/introProject.html')
 
 
-def registerLogin(request):
-    return render(request, 'crowdfunding/registerLogin.html')
+def registerlogin(request):
+    form = RegisterForm()
+    return render(request, 'crowdfunding/registerLogin.html', {'form': form})
 
-def changePassword(request):
+
+def changepassword(request):
     return render(request, 'crowdfunding/changePassword.html')
 
 
-def userProfile(request):
+def userprofile(request):
     return render(request, 'crowdfunding/userProfile.html')
 
-def userProjects(request):
+
+def userprojects(request):
     return render(request, 'crowdfunding/userProjects.html')
