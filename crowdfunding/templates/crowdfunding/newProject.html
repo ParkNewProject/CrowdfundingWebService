@@ -1,36 +1,35 @@
 <head>
-    <title> CF | Sign in </title>
+    <title> CF | New Project </title>
 </head>
 
 {% extends 'crowdfunding/base.html' %}
 {% load staticfiles %}
     {% block content %}
 
+
         <div class="page-head">
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
-                        <h1 class="page-title">Sign in </h1>
+                        <h1 class="page-title">프로젝트 등록 </h1>
                     </div>
                 </div>
             </div>
         </div>
         <!-- End page header -->
 
-
-        <!-- login-area -->
+        <!-- post-area -->
         <div class="register-area" style="background-color: rgb(249, 249, 249);">
             <div class="container">
                 <div style="display: inline-block, margin: 0px 250px 0px 250px">
                     <div class="box-for overflow">
                         <div class="col-md-12 col-xs-12 login-blocks" style="padding: 0px 170px 0px 170px">
-                            <h2>로그인 (Sign in) : </h2>
+                            <h2>새 프로젝트 : </h2>
                             <form action="" method="post">
                                 {% csrf_token %}
                                 {% include 'crowdfunding/form.html' with form=login_form submit_title='login' %}
                                 <div class="text-center">
-                                    <button type="button" onclick="location.href='/register'"  class="btn btn"> 회원 가입 </button>
-                                    <button type="submit" class="btn btn-default"> 로그인 </button>
+                                    <button type="submit" class="btn btn-default"> 등록 </button>
                                 </div>
                             </form>
                             <br>
@@ -40,5 +39,23 @@
             </div>
         </div>
 
+
+    <script>
+            $(document).ready(function () {
+
+                $('#image-gallery').lightSlider({
+                    gallery: true,
+                    item: 1,
+                    thumbItem: 9,
+                    slideMargin: 0,
+                    speed: 500,
+                    auto: true,
+                    loop: true,
+                    onSliderLoad: function () {
+                        $('#image-gallery').removeClass('cS-hidden');
+                    }
+                });
+            });
+        </script>
 
      {% endblock %}

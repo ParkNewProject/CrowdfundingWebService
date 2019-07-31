@@ -1,5 +1,5 @@
 <head>
-    <title> CF | Show Projects </title>
+    <title> CF | My Profile </title>
 </head>
 
 {% extends 'crowdfunding/base.html' %}
@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
-                        <h1 class="page-title">Hello : <span class="orange strong">{당신의 이름}</span></h1>
+                        <h1 class="page-title">Hello : <span class="orange strong">{{ user.get_username }}</span></h1>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
 
                         <form action="" method="">
                             <div class="profiel-header">
-                                <h3> 회원 프로필 <br> </h3>
+                                <h3> 프로필 수정 / 조회<br> </h3>
                                      <h5 style="text-align: center "><small>당신의 회원 정보를 작성해주세요!</small> </h5>
 
                                 <hr>
@@ -49,8 +49,8 @@
                                         <input name="name" type="text" class="form-control" placeholder="Andrew...">
                                     </div>
                                     <div class="form-group">
-                                        <label>이메일 <small>(필수)</small></label>
-                                        <input name="email" type="email" class="form-control" placeholder="andrew@email@email.com.com">
+                                        <label>이메일 </label>
+                                        <input name="email" type="email" class="form-control" placeholder="andrew@email.com">
                                     </div>
                                 </div>
                                 <div class="col-sm-3 padding-top-25">

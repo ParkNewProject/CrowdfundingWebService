@@ -60,9 +60,11 @@ class RegisterForm(forms.Form):
             raise forms.ValidationError('비밀번호와 비밀번호 확인란의 값이 일치하지 않습니다')
         return password2
 
-    def signup(self):
+    def register(self):
         if self.is_valid():
             return User.objects.create_user(
                 username=self.cleaned_data['username'],
                 password=self.cleaned_data['password2']
             )
+
+        

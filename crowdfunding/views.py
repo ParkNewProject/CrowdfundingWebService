@@ -18,6 +18,9 @@ def showprojects(request):
 def introproject(request):
     return render(request, 'crowdfunding/introProject.html')
 
+def newproject(request):
+    return render(request, 'crowdfunding/newProject.html')
+
 
 def login(request):
     if request.method == 'POST':
@@ -48,7 +51,8 @@ def register(request):
     if request.method == 'POST':
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
-            register_form.signup()
+            register_form.register()
+
             return redirect(reverse('login'))
     else:
         register_form = RegisterForm()
@@ -58,13 +62,8 @@ def register(request):
     }
     return render(request, 'crowdfunding/register.html', context)
 
-def changepassword(request):
-    return render(request, 'crowdfunding/changePassword.html')
-
-
 def userprofile(request):
     return render(request, 'crowdfunding/userProfile.html')
-
 
 def userprojects(request):
     return render(request, 'crowdfunding/userProjects.html')
