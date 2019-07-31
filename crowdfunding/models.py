@@ -7,9 +7,10 @@ class CrfProject(models.Model):
     pType = models.IntegerField()
     pid = models.CharField(max_length=10, primary_key=True)
     pTitle = models.CharField(max_length=30)
+    pIntro = models.CharField(max_length=50, null=True)
     fin_time = models.DateField()
     cre_time = models.DateField()
-    email = models.ForeignKey(User, models.DO_NOTHING, db_column='email')
+    username = models.ForeignKey(User, models.DO_NOTHING, db_column='username')
 
 class ProjectUser(models.Model):
     username = models.ForeignKey(User, models.DO_NOTHING, db_column='username')

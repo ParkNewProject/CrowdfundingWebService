@@ -67,4 +67,32 @@ class RegisterForm(forms.Form):
                 password=self.cleaned_data['password2']
             )
 
-        
+class NewProjectForm(forms.Form):
+    pType = forms.IntegerField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    pTitle = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    fin_time = forms.DateField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    cre_time = forms.DateField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
