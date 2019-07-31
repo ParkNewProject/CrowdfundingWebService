@@ -1,0 +1,44 @@
+<head>
+    <title> CF | Show Projects </title>
+</head>
+
+{% extends 'crowdfunding/base.html' %}
+{% load staticfiles %}
+    {% block content %}
+
+        <div class="page-head">
+            <div class="container">
+                <div class="row">
+                    <div class="page-head-content">
+                        <h1 class="page-title">Sign in </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End page header -->
+
+
+        <!-- register-area -->
+        <div class="register-area" style="background-color: rgb(249, 249, 249);">
+            <div class="container">
+                <div style="display: inline-block, margin: 0px 250px 0px 250px">
+                    <div class="box-for overflow">
+                        <div class="col-md-12 col-xs-12 login-blocks" style="padding: 0px 170px 0px 170px">
+                            <h2>로그인 (Sign in) : </h2>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                {% include 'crowdfunding/form.html' with form=login_form submit_title='login' %}
+                                <div class="text-center">
+                                    <button type="button" onclick="location.href='/register'"  class="btn btn"> 회원 가입 </button>
+                                    <button type="submit" class="btn btn-default"> 로그인 </button>
+                                </div>
+                            </form>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+     {% endblock %}

@@ -1,12 +1,6 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
-
-
-class CrfUser(models.Model):
-    email = models.CharField(max_length=30, primary_key=True)
-    username = models.CharField(max_length=10)
-    password = models.CharField(max_length=10)
 
 
 class CrfProject(models.Model):
@@ -15,8 +9,8 @@ class CrfProject(models.Model):
     pTitle = models.CharField(max_length=30)
     fin_time = models.DateField()
     cre_time = models.DateField()
-    email = models.ForeignKey(CrfUser, models.DO_NOTHING, db_column='email')
+    email = models.ForeignKey(User, models.DO_NOTHING, db_column='email')
 
 class ProjectUser(models.Model):
-    email = models.ForeignKey(CrfUser, models.DO_NOTHING, db_column='email')
+    username = models.ForeignKey(User, models.DO_NOTHING, db_column='username')
     pid = models.ForeignKey(CrfProject, models.DO_NOTHING, db_column='pid')

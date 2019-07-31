@@ -62,13 +62,19 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse yamm" id="navigation">
                     <div class="button navbar-right">
-                        <button class="navbar-btn nav-button wow bounceInRight login" onclick=" window.open('registerLogin')" data-wow-delay="0.45s">로그인</button>
+                        {% if user.is_active %}
+                        <button class="navbar-btn nav-button wow bounceInRight login" onclick=" window.open('logout')" data-wow-delay="0.45s">로그아웃</button>
+                        {% else %}
+                        <button class="navbar-btn nav-button wow bounceInRight login" onclick=" window.open('login')" data-wow-delay="0.45s">로그인</button>
+                        {% endif %}
                         <button class="navbar-btn nav-button wow fadeInRight" onclick=" window.open('changePassword')" data-wow-delay="0.48s">비밀번호 변경</button>
                     </div>
                     <ul class="main-nav nav navbar-nav navbar-right">
                         <li class="wow fadeInDown" data-wow-delay="0.1.5s"><a class="" href="/showProjects">프로젝트</a></li>
                         <li class="dropdown ymm-sw " data-wow-delay="0.24s">
-                            <a href="/userProfile" class="" data-toggle="dropdown" data-hover="dropdown" data-delay="200">{Username} <b class="caret"></b></a>
+                            {% if user.is_active %}
+                            <a href="/userProfile" class="" data-toggle="dropdown" data-hover="dropdown" data-delay="200">{{ user.get_username }} <b class="caret"></b></a>
+                            {% endif %}
                             <ul class="dropdown-menu navbar-nav">
 
                                 <li>
