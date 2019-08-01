@@ -1,17 +1,24 @@
 from django.db import models
-from django.contrib.auth.models import User
 # Create your models here.
 
-
 class CrfProject(models.Model):
-    pType = models.IntegerField()
+    GAME = 'G'
+    ART = 'A'
+    FASHION = 'F'
+    CAMPAIGN = 'C'
+    pType = [
+        (GAME, '게임'),
+        (ART, '예술'),
+        (FASHION, '패션'),
+        (CAMPAIGN, '캠페인'),
+    ]
     pid = models.CharField(max_length=10, primary_key=True)
     pTitle = models.CharField(max_length=30)
     pIntro = models.CharField(max_length=50, null=True)
+    pContext = models.TextField(null=True)
     fin_time = models.DateField()
-    cre_time = models.DateField()
-    username = models.ForeignKey(User, models.DO_NOTHING, db_column='username')
+    cre_time = models.DateField(auto_now_add=True)
+    user = models.CharField(max_length=10, null=True)
 
 class ProjectUser(models.Model):
-    username = models.ForeignKey(User, models.DO_NOTHING, db_column='username')
-    pid = models.ForeignKey(CrfProject, models.DO_NOTHING, db_column='pid')
+    pid = models.ForeignKey(CrfProject, on_delete=models.CASCADE, null=True)

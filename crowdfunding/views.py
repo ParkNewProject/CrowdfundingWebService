@@ -1,5 +1,6 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, NewProjectForm
 from django.contrib.auth import (
     authenticate,
     login as django_login,
@@ -19,7 +20,18 @@ def introproject(request):
     return render(request, 'crowdfunding/introProject.html')
 
 def newproject(request):
-    return render(request, 'crowdfunding/newProject.html')
+    if request.method == 'POST':
+        newproject_form = NewProjectForm(request.POST)
+        if newproject_form.is_valid():
+            username = User.get_username()
+            password = newproject_form.cleaned_data['password']
+            return redirect(reverse('userProject'))
+    else:
+        newproject_form = NewProjectForm()
+    context = {
+        'newproject_form': newproject_form,
+    }
+    return render(request, 'crowdfunding/newProject.html', context)
 
 
 def login(request):

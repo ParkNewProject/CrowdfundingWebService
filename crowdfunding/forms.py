@@ -12,6 +12,7 @@ class LoginForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
+                'placeholder': 'Username',
             }
         )
     )
@@ -19,6 +20,7 @@ class LoginForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
+                'placeholder': 'Password',
             }
         )
     )
@@ -29,6 +31,7 @@ class RegisterForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
+                'placeholder': 'Username',
             }
         )
     )
@@ -36,6 +39,7 @@ class RegisterForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
+                'placeholder': 'Password',
             }
         )
     )
@@ -43,6 +47,7 @@ class RegisterForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
+                'placeholder': 'Retype Password',
             }
         )
     )
@@ -67,6 +72,7 @@ class RegisterForm(forms.Form):
                 password=self.cleaned_data['password2']
             )
 
+
 class NewProjectForm(forms.Form):
     pType = forms.IntegerField(
         widget=forms.TextInput(
@@ -76,9 +82,10 @@ class NewProjectForm(forms.Form):
         )
     )
     pTitle = forms.CharField(
-        widget=forms.TextInput(
+        widget=forms.Textarea(
             attrs={
                 'class': 'form-control',
+                'placeholder': 'Enter description here',
             }
         )
     )

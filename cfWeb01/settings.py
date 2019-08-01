@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'cfWeb01.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'crfdb',
+        'NAME': 'cfdb',
         'USER': 'postgres',
         'PASSWORD': '0000',
         'HOST': 'localhost',
