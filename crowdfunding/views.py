@@ -1,11 +1,11 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.utils import timezone
+
 from .forms import RegisterForm, LoginForm, NewProjectForm
 from django.contrib.auth import (
     authenticate,
     login as django_login,
-    logout as django_logout,
-)
+    logout as django_logout)
 from django.urls import reverse
 
 def index(request):
@@ -20,18 +20,19 @@ def introproject(request):
     return render(request, 'crowdfunding/introProject.html')
 
 def newproject(request):
-    if request.method == 'POST':
-        newproject_form = NewProjectForm(request.POST)
-        if newproject_form.is_valid():
-            username = User.get_username()
-            password = newproject_form.cleaned_data['password']
-            return redirect(reverse('userProject'))
+    if request.method == "POST":
+        form = NewProjectForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.pid = '00000000'
+            post.user = request.user
+            post.user = request.user
+            post.cre_time = timezone.now()
+            post.save()
+            return redirect('post_detail', pk=post.pk)
     else:
-        newproject_form = NewProjectForm()
-    context = {
-        'newproject_form': newproject_form,
-    }
-    return render(request, 'crowdfunding/newProject.html', context)
+        form = NewProjectForm()
+    return render(request, 'crowdfunding/newProject.html', {'form': form})
 
 
 def login(request):

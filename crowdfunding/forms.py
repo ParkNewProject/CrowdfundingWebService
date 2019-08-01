@@ -1,6 +1,10 @@
+import datetime
+
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+
+from crowdfunding.models import CrfProject
 
 User = get_user_model()
 
@@ -73,33 +77,12 @@ class RegisterForm(forms.Form):
             )
 
 
-class NewProjectForm(forms.Form):
-    pType = forms.IntegerField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-            }
-        )
-    )
-    pTitle = forms.CharField(
-        widget=forms.Textarea(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Enter description here',
-            }
-        )
-    )
+class NewProjectForm(forms.ModelForm):
     fin_time = forms.DateField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-            }
-        )
+        widget=forms.SelectDateWidget(),
+        initial=datetime.date.today(),
     )
-    cre_time = forms.DateField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-            }
-        )
-    )
+
+    class Meta:
+        model = CrfProject
+        fields = ('pType', 'pTitle', 'pIntro', 'pContext',)
