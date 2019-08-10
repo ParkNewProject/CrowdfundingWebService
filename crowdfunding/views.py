@@ -1,12 +1,15 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.utils import timezone
 
-from .forms import RegisterForm, LoginForm, NewProjectForm
+from .forms import LoginForm, NewProjectForm, RegisterForm
 from django.contrib.auth import (
     authenticate,
     login as django_login,
-    logout as django_logout)
+    logout as django_logout, get_user_model)
 from django.urls import reverse
+
+
+User = get_user_model()
 
 def index(request):
     return render(request, 'crowdfunding/index.html')
@@ -24,12 +27,10 @@ def newproject(request):
         form = NewProjectForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
+
             post.pid = '00000000'
-            post.user = request.user
-            post.user = request.user
-            post.cre_time = timezone.now()
             post.save()
-            return redirect('post_detail', pk=post.pk)
+            return redirect('index')
     else:
         form = NewProjectForm()
     return render(request, 'crowdfunding/newProject.html', {'form': form})
@@ -39,10 +40,10 @@ def login(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
-            username = login_form.cleaned_data['username']
+            user_id = login_form.cleaned_data['user_id']
             password = login_form.cleaned_data['password']
             user = authenticate(
-                username=username,
+                user_id=user_id,
                 password=password
             )
             if user:
@@ -64,8 +65,8 @@ def register(request):
     if request.method == 'POST':
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
-            register_form.register()
-
+            register_form.save()
+            messages.info(request, '성공적으로 회원가입했습니다!')
             return redirect(reverse('login'))
     else:
         register_form = RegisterForm()

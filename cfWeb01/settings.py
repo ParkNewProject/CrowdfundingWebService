@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+AUTH_USER_MODEL = 'crowdfunding.CrfUser'
+
 
 # Application definition
 
@@ -80,7 +82,7 @@ WSGI_APPLICATION = 'cfWeb01.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cfdb',
+        'NAME': 'crfdb',
         'USER': 'postgres',
         'PASSWORD': '0000',
         'HOST': 'localhost',

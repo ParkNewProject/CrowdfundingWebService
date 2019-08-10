@@ -1,20 +1,76 @@
-from django.contrib.auth import get_user_model
+from django.conf import settings
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from .choices import *
+
+
 # Create your models here.
 
-User = get_user_model()
+
+class CrfUserManager(BaseUserManager):
+    def create_user(self, user_id, username, email, password):
+        if not user_id:
+            raise ValueError('ID Required!')
+
+        user = self.model(
+            user_id=user_id,
+            username=username,
+            email=email,
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, user_id, password):
+        user = self.create_user(
+            user_id=user_id,
+            username='username',
+            email='park@email.com',
+            password=password,
+        )
+
+        user.is_superuser = True
+
+        user.save(using=self._db)
+        return user
+
+
+class CrfUser(AbstractBaseUser, PermissionsMixin):
+    user_id = models.CharField(max_length=16, unique=True, verbose_name='아이디')
+    username = models.CharField(max_length=30, verbose_name='유저 이름')
+    email = models.EmailField(max_length=50, verbose_name='이메일')
+
+    USERNAME_FIELD = 'user_id'
+    REQUIRED_FIELDS = []
+
+    objects = CrfUserManager()
+
+    def __str__(self):
+        return self.username
+
+    def get_user_id(self):
+        return self.user_id
+
+    @property
+    def is_staff(self):
+        return self.is_superuser
+
 
 class CrfProject(models.Model):
-    pType = models.CharField(max_length=2, choices=TYPE, default='G')
-    pid = models.CharField(max_length=10, primary_key=True)
-    pTitle = models.CharField(max_length=30)
-    pIntro = models.CharField(max_length=50, null=True)
-    pContext = models.TextField(null=True)
-    fin_time = models.DateField()
-    cre_time = models.DateField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    pType = models.CharField(max_length=2, choices=TYPE, default='G', verbose_name='종류')  #
+    pid = models.CharField(max_length=10, primary_key=True, verbose_name='고유번호')
+    pTitle = models.CharField(max_length=30, verbose_name='제목')  #
+
+    pImage = models.ImageField(null=True, verbose_name='이미지')  #
+    pIntro = models.CharField(max_length=50, null=True, verbose_name='소개글')  #
+    pContext = models.TextField(null=True, verbose_name='본문')  #
+    fin_time = models.DateField(auto_now_add=True, verbose_name='마감일')  #
+    cre_time = models.DateField(auto_now_add=True, verbose_name='등록일')
+    owned_user = models.ForeignKey(CrfUser, on_delete=models.CASCADE, null=True, verbose_name='소유주')
+
 
 class ProjectUser(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    pid = models.ForeignKey(CrfProject, on_delete=models.CASCADE, null=True)
+    contrib_user = models.ForeignKey(CrfUser, on_delete=models.CASCADE, null=True, verbose_name='기여자')
+    pid = models.ForeignKey(CrfProject, on_delete=models.CASCADE, null=True, verbose_name='고유번호')
