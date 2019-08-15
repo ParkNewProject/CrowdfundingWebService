@@ -53,24 +53,28 @@ class CrfUser(AbstractBaseUser, PermissionsMixin):
     def get_user_id(self):
         return self.user_id
 
+    def get_username(self):
+        return self.username
+
     @property
     def is_staff(self):
         return self.is_superuser
-
 
 class CrfProject(models.Model):
     pType = models.CharField(max_length=2, choices=TYPE, default='G', verbose_name='종류')  #
     pid = models.CharField(max_length=10, primary_key=True, verbose_name='고유번호')
     pTitle = models.CharField(max_length=30, verbose_name='제목')  #
 
-    pImage = models.ImageField(null=True, verbose_name='이미지')  #
+    pImage = models.ImageField(null=True, default='cf/default', upload_to='cf/%Y%M%d', verbose_name='이미지')  #
     pIntro = models.CharField(max_length=50, null=True, verbose_name='소개글')  #
     pContext = models.TextField(null=True, verbose_name='본문')  #
+
     fin_time = models.DateField(auto_now_add=True, verbose_name='마감일')  #
     cre_time = models.DateField(auto_now_add=True, verbose_name='등록일')
-    owned_user = models.ForeignKey(CrfUser, on_delete=models.CASCADE, null=True, verbose_name='소유주')
+
+    owned_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='소유주')
 
 
 class ProjectUser(models.Model):
-    contrib_user = models.ForeignKey(CrfUser, on_delete=models.CASCADE, null=True, verbose_name='기여자')
+    contrib_user = models.ForeignKey(CrfUser, on_delete=models.CASCADE, default=1, verbose_name='기여자')
     pid = models.ForeignKey(CrfProject, on_delete=models.CASCADE, null=True, verbose_name='고유번호')

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
+from crowdfunding.models import CrfProject
 from .forms import LoginForm, NewProjectForm, RegisterForm
 from django.contrib.auth import (
     authenticate,
@@ -8,11 +9,17 @@ from django.contrib.auth import (
     logout as django_logout, get_user_model)
 from django.urls import reverse
 
-
 User = get_user_model()
 
 def index(request):
-    return render(request, 'crowdfunding/index.html')
+    types = (
+        ('G', '게임'),
+        ('A', '예술'),
+        ('F', '패션'),
+        ('C', '캠페인'),
+    )
+    projects = CrfProject.objects.all()
+    return render(request, 'crowdfunding/index.html', {'types': types, 'projects': projects})
 
 
 def showprojects(request):
@@ -22,13 +29,20 @@ def showprojects(request):
 def introproject(request):
     return render(request, 'crowdfunding/introProject.html')
 
+def project_id():
+    from random import choice
+    import string
+    arr = [choice(string.ascii_letters) for _ in range(8)]
+    pid = ''.join(arr)
+    return pid
+
 def newproject(request):
     if request.method == "POST":
-        form = NewProjectForm(request.POST)
+        form = NewProjectForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-
-            post.pid = '00000000'
+            post.pid = project_id()
+            post.owned_user = request.user
             post.save()
             return redirect('index')
     else:

@@ -33,13 +33,10 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="프로젝트 종류">
-
-                                        <option>종류1</option>
-                                        <option>종류2</option>
-                                        <option>종류3</option>
-                                        <option>종류4</option>
-                                        <option>종류5</option>
+                                    <select id="lunchBegins" class="selectpicker" data-live-search="false" data-live-search-style="begins" title="프로젝트 종류">
+                                        {% for i, t in types %}
+                                        <option>{{ t }} </option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
@@ -207,106 +204,21 @@
 
                 <div class="row">
                     <div class="proerty-th">
+                        {% for project in projects %}
                         <div class="col-sm-6 col-md-3 p0">
                             <div class="box-two proerty-item">
                                 <div class="item-thumb">
                                     <a href="property-1.html" ><img src='{% static "crowdfunding/assets/img/demo/property-1.jpg" %}'></a>
                                 </div>
                                 <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >프로젝트 A </a></h5>
+                                    <h5><a href="property-1.html" >{{ project.pTitle }} </a></h5>
                                     <div class="dot-hr"></div>
                                     <span class="pull-left"><b>Area :</b> 120m </span>
                                     <span class="proerty-price pull-right">$ 300,000</span>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-2.html" ><img src='{% static "crowdfunding/assets/img/demo/property-2.jpg" %}'></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-2.html" >프로젝트 A </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-3.html" ><img src='{% static "crowdfunding/assets/img/demo/property-3.jpg" %}'></a>
-
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-3.html" >프로젝트 A </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-1.html" ><img src='{% static "crowdfunding/assets/img/demo/property-4.jpg" %}'></a>
-
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >프로젝트 A </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-3.html" ><img src='{% static "crowdfunding/assets/img/demo/property-2.jpg" %}'></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-3.html" >프로젝트 A </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-2.html" ><img src="assets/img/demo/property-4.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-2.html" >프로젝트 A </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-1.html" ><img src="assets/img/demo/property-3.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >프로젝트 A </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
+                        {%endfor%}
 
                         <div class="col-sm-6 col-md-3 p0">
                             <div class="box-tree more-proerty text-center">

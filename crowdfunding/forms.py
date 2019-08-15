@@ -2,12 +2,7 @@ import datetime
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
-from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
-from django.utils import timezone
-
 from crowdfunding.models import CrfProject, CrfUser
-
 
 # Create your models here.
 
@@ -134,4 +129,4 @@ class NewProjectForm(forms.ModelForm):
 
     class Meta:
         model = CrfProject
-        fields = ['pType', 'pTitle', 'pIntro', 'pContext', ]
+        fields = ['pType', 'pImage', 'pTitle', 'pIntro', 'pContext', ]

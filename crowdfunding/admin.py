@@ -4,7 +4,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from crowdfunding.forms import RegisterForm, ChangeForm
+from .models import CrfProject, CrfUser
 
+admin.site.register(CrfProject)
+admin.site.register(CrfUser)
 
 class CrfUserAdmin(UserAdmin):
     form = ChangeForm
