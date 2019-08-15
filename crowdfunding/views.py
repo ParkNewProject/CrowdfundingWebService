@@ -11,19 +11,20 @@ from django.urls import reverse
 
 User = get_user_model()
 
+types = (
+    ('G', '게임'),
+    ('A', '예술'),
+    ('F', '패션'),
+    ('C', '캠페인'),
+)
+projects = CrfProject.objects.all()
+
 def index(request):
-    types = (
-        ('G', '게임'),
-        ('A', '예술'),
-        ('F', '패션'),
-        ('C', '캠페인'),
-    )
-    projects = CrfProject.objects.all()
     return render(request, 'crowdfunding/index.html', {'types': types, 'projects': projects})
 
 
 def showprojects(request):
-    return render(request, 'crowdfunding/showProjects.html')
+    return render(request, 'crowdfunding/showProjects.html', {'types': types, 'projects': projects})
 
 
 def introproject(request):
