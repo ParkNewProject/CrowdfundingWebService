@@ -2,14 +2,13 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 from crowdfunding.models import CrfProject
-from .forms import LoginForm, NewProjectForm, RegisterForm
+from .forms import LoginForm, NewProjectForm, RegisterForm, ProjectSearchForm
 from django.contrib.auth import (
     authenticate,
     login as django_login,
     logout as django_logout, get_user_model)
 from django.urls import reverse
 
-User = get_user_model()
 
 types = (
     ('G', '게임'),
@@ -20,11 +19,18 @@ types = (
 projects = CrfProject.objects.all()
 
 def index(request):
-    return render(request, 'crowdfunding/index.html', {'types': types, 'projects': projects})
+    if request.method == "POST":
+        form = ProjectSearchForm(request.POST)
+        if form.is_valid():
+            s_project = projects.filter(owned_user=request.user).order_by('cre_time')
+            return redirect('showprojects', {'form': form, 's_project': s_project})
+    else:
+        form = ProjectSearchForm()
+    return render(request, 'crowdfunding/index.html', {'types': types, 'projects': projects, 'form': form})
 
 
 def showprojects(request):
-    return render(request, 'crowdfunding/showProjects.html', {'types': types, 'projects': projects})
+        return render(request, 'crowdfunding/showProjects.html', {'types': types, 'projects': projects})
 
 
 def introproject(request):
@@ -95,4 +101,5 @@ def userprofile(request):
     return render(request, 'crowdfunding/userProfile.html')
 
 def userprojects(request):
-    return render(request, 'crowdfunding/userProjects.html')
+    u_project = projects.filter(owned_user=request.user).order_by('cre_time')
+    return render(request, 'crowdfunding/userProjects.html', {'types': types, 'u_project': u_project})

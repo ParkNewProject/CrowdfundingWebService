@@ -1,40 +1,42 @@
 import datetime
 
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
+from django.contrib.auth.forms import UserCreationForm
 from crowdfunding.models import CrfProject, CrfUser
+
 
 # Create your models here.
 
 class RegisterForm(UserCreationForm):
     user_id = forms.CharField(
+        label='아이디',
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': '아이디',
-                'label': '아이디',
             }
         )
     )
     username = forms.CharField(
+        label='이름',
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': '이름',
-                'label': '이름',
             }
         )
     )
     email = forms.EmailField(
+        label='이메일',
         widget=forms.EmailInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': '이메일',
-                'label': '이메일',
             }
         )
     )
     password1 = forms.CharField(
+        label='비밀번호',
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
@@ -43,6 +45,7 @@ class RegisterForm(UserCreationForm):
         )
     )
     password2 = forms.CharField(
+        label='비밀번호 확인',
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
@@ -70,8 +73,10 @@ class RegisterForm(UserCreationForm):
             user.save()
         return user
 
+
 class LoginForm(forms.Form):
     user_id = forms.CharField(
+        label='아이디',
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
@@ -80,6 +85,7 @@ class LoginForm(forms.Form):
         )
     )
     password = forms.CharField(
+        label='비밀번호',
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
@@ -87,38 +93,6 @@ class LoginForm(forms.Form):
             }
         )
     )
-
-class ChangeForm(UserChangeForm):
-    user_id = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': '아이디',
-            }
-        )
-    )
-    username = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': '이름',
-            }
-        )
-    )
-    email = forms.EmailField(
-        widget=forms.EmailInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': '이메일',
-            }
-        )
-    )
-
-    password = ReadOnlyPasswordHashField(label="비밀번호")
-
-    class Meta:
-        model = CrfUser
-        fields = ('user_id', 'username',  'email')
 
 
 class NewProjectForm(forms.ModelForm):
@@ -130,3 +104,29 @@ class NewProjectForm(forms.ModelForm):
     class Meta:
         model = CrfProject
         fields = ['pType', 'pImage', 'pTitle', 'pIntro', 'pContext', ]
+
+
+class ProjectSearchForm(forms.ModelForm):
+
+    types = (
+        ('G', '게임'),
+        ('A', '예술'),
+        ('F', '패션'),
+        ('C', '캠페인'),
+    )
+
+    class Meta:
+        model = CrfProject
+        fields = ['pTitle', 'pType']
+        labels = {
+            'pTitle': '제목'
+        }
+        widgets = {
+            'pTitle': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '제목',
+            }),
+            'pType': forms.Select(attrs={
+                'class': 'form-control'
+            })
+        }
