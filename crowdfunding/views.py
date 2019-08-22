@@ -2,11 +2,11 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 from crowdfunding.models import CrfProject
-from .forms import LoginForm, NewProjectForm, RegisterForm, ProjectSearchForm
+from .forms import LoginForm, NewProjectForm, RegisterForm
 from django.contrib.auth import (
     authenticate,
     login as django_login,
-    logout as django_logout, get_user_model)
+    logout as django_logout)
 from django.urls import reverse
 
 
@@ -19,19 +19,19 @@ types = (
 projects = CrfProject.objects.all()
 
 def index(request):
-    if request.method == "POST":
-        form = ProjectSearchForm(request.POST)
-        if form.is_valid():
-            s_project = projects.filter(owned_user=request.user).order_by('cre_time')
-            return redirect('showprojects', {'form': form, 's_project': s_project})
-    else:
-        form = ProjectSearchForm()
-    return render(request, 'crowdfunding/index.html', {'types': types, 'projects': projects, 'form': form})
+    return render(request, 'crowdfunding/index.html', {'projects': projects})
 
 
 def showprojects(request):
-        return render(request, 'crowdfunding/showProjects.html', {'types': types, 'projects': projects})
+    qprojects = projects
+    q = request.GET.get('q', '')            # q 내용 또는 빈 문자열
+    if q:
+        qprojects = projects.filter(pTitle__icontains=q)      # 제목에 q 포함 필터링
 
+    return render(request, 'crowdfunding/showProjects.html', {
+        'projects': qprojects,
+        'q': q,
+    })
 
 def introproject(request):
     return render(request, 'crowdfunding/introProject.html')

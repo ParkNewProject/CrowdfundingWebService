@@ -24,176 +24,33 @@
                 <div class="row  pr0 padding-top-40 properties-page">
                     <div class="col-md-12 padding-bottom-40 large-search">
                         <div class="search-form wow pulse">
-                             <form action="" class=" form-inline" style="padding-left: 10%">
-
-                                <div class="form-group" style="width: 400px ">
-                                    <input type="text" class="form-control" placeholder="제목">
-                                </div>
-                                <div class="form-group"style="width: 0px">
-
-                                </div>
-                                <div class="form-group">
-                                    <select id="lunchBegins" class="selectpicker" data-live-search="false" data-live-search-style="begins" title="프로젝트 종류">
-                                        {% for i, t in types %}
-                                        <option>{{ t }} </option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
-                                <div class="col-md-12 ">
-                                    <div class="search-row">
-
-                                        <div class="col-sm-3">
-                                            <label for="price-range">Price range ($):</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                   data-slider-max="600" data-slider-step="5"
-                                                   data-slider-value="[0,450]" id="price-range" ><br />
-                                            <b class="pull-left color">2000$</b>
-                                            <b class="pull-right color">100000$</b>
-                                        </div>
-                                        <!-- End of  -->
-
-                                        <div class="col-sm-3">
-                                            <label for="property-geo">Property geo (m2) :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                   data-slider-max="600" data-slider-step="5"
-                                                   data-slider-value="[50,450]" id="property-geo" ><br />
-                                            <b class="pull-left color">40m</b>
-                                            <b class="pull-right color">12000m</b>
-                                        </div>
-                                        <!-- End of  -->
-
-                                        <div class="col-sm-3">
-                                            <label for="price-range">Min baths :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                   data-slider-max="600" data-slider-step="5"
-                                                   data-slider-value="[250,450]" id="min-baths" ><br />
-                                            <b class="pull-left color">1</b>
-                                            <b class="pull-right color">120</b>
-                                        </div>
-                                        <!-- End of  -->
-
-                                        <div class="col-sm-3">
-                                            <label for="property-geo">Min bed :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                   data-slider-max="600" data-slider-step="5"
-                                                   data-slider-value="[250,450]" id="min-bed" ><br />
-                                            <b class="pull-left color">1</b>
-                                            <b class="pull-right color">120</b>
-                                        </div>
-                                        <!-- End of  -->
-
-                                    </div>
-
-                                    <div class="search-row">
-
-                                        <div class="col-sm-3">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Fire Place(3100)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->
-
-                                        <div class="col-sm-3">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Dual Sinks(500)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->
-
-                                        <div class="col-sm-3">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Hurricane Shutters(99)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->
-
-                                        <div class="col-sm-3">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Swimming Pool(1190)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->
-
-                                        <div class="col-sm-3">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> 2 Stories(4600)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->
-
-                                        <div class="col-sm-3">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Emergency Exit(200)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->
-
-                                        <div class="col-sm-3">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Laundry Room(10073)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->
-
-                                        <div class="col-sm-3">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Jog Path(1503)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->
-
-                                        <div class="col-sm-3">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> 26' Ceilings(1200)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->
-                                    </div>
-                                </div>
+                            <form action="" class="form-inline" method="get" style=" text-align:center; padding-left: 10%; padding-right: 10%; white-space:nowrap;">
+                                <input type="text" class="form-control" style="width:500px" placeholder="제목" name="q" value="{{ q }}">
+                                <input type="submit" value="검색">
                             </form>
                         </div>
                     </div>
 
-                    <div class="col-md-12  clear">
-                        <div class="col-xs-10 page-subheader sorting pl0">
-                            <ul class="sort-by-list">
-                                <li class="active">
-                                    <a href="javascript:void(0);" class="order_by_date" data-orderby="property_date" data-order="ASC">
-                                        날짜 순 <i class="fa fa-sort-amount-asc"></i>
-                                    </a>
-                                </li>
-                                <li class="">
-                                    <a href="javascript:void(0);" class="order_by_price" data-orderby="property_price" data-order="DESC">
-                                        액수 순 <i class="fa fa-sort-numeric-desc"></i>
-                                    </a>
-                                    <div style="float: right;">
-                                    <button type="button" onclick="location.href='/new project' " class="btn btn-default"> 로그인 </button>
-                                    </div>
-                                </li>
-                            </ul><!--/ .sort-by-list-->
-                        </div>
-                    </div>
+                    <!-- 정렬-->
+<!--                    <div class="col-md-12  clear">-->
+<!--                        <div class="col-xs-10 page-subheader sorting pl0">-->
+<!--                            <ul class="sort-by-list">-->
+<!--                                <li class="active">-->
+<!--                                    <a href="javascript:void(0);" class="order_by_date" data-orderby="property_date" data-order="ASC">-->
+<!--                                        날짜 순 <i class="fa fa-sort-amount-asc"></i>-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                                <li class="">-->
+<!--                                    <a href="javascript:void(0);" class="order_by_price" data-orderby="property_price" data-order="DESC">-->
+<!--                                        액수 순 <i class="fa fa-sort-numeric-desc"></i>-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
 
+                    <!-- 전체 프로젝트 조회-->
                     <div class="col-md-12 clear ">
                         <div id="list-type" class="proerty-th">
                         {% for project in projects %}
@@ -221,20 +78,21 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12 clear">
-                        <div class="pull-right">
-                            <div class="pagination">
-                                <ul>
-                                    <li><a href="#">Prev</a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">Next</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- 페이지 넘김 1,2,3...-->
+<!--                    <div class="col-md-12 clear">-->
+<!--                        <div class="pull-right">-->
+<!--                            <div class="pagination">-->
+<!--                                <ul>-->
+<!--                                    <li><a href="#">Prev</a></li>-->
+<!--                                    <li><a href="#">1</a></li>-->
+<!--                                    <li><a href="#">2</a></li>-->
+<!--                                    <li><a href="#">3</a></li>-->
+<!--                                    <li><a href="#">4</a></li>-->
+<!--                                    <li><a href="#">Next</a></li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
