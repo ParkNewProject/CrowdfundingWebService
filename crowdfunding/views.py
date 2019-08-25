@@ -23,18 +23,19 @@ def index(request):
 
 
 def showprojects(request):
-    qprojects = projects
+    qproject = projects
     q = request.GET.get('q', '')            # q 내용 또는 빈 문자열
     if q:
-        qprojects = projects.filter(pTitle__icontains=q)      # 제목에 q 포함 필터링
+        qproject = projects.filter(pTitle__icontains=q).order_by('cre_time')     # 제목에 q 포함 필터링
 
     return render(request, 'crowdfunding/showProjects.html', {
-        'projects': qprojects,
+        'projects': qproject,
         'q': q,
     })
 
-def introproject(request):
-    return render(request, 'crowdfunding/introProject.html')
+def introproject(request, projectid):
+    project = projects.filter(pid=projectid)
+    return render(request, 'crowdfunding/introProject.html', {'project': project})
 
 def project_id():
     from random import choice

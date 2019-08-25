@@ -1,9 +1,10 @@
-<head>
-    <title> CF | Show Projects </title>
-</head>
-
 {% extends 'crowdfunding/base.html' %}
 {% load staticfiles %}
+
+<head>
+    <title> CrowdFUNding | 크라우드 펀딩 </title>
+</head>
+
     {% block content %}
 
 
@@ -57,10 +58,10 @@
                         <div class="col-sm-6 col-md-3 p0">
                             <div class="box-two proerty-item">
                                 <div class="item-thumb">
-                                    <a href="property-1.html" ><img src='{% static "crowdfunding/assets/img/demo/property-1.jpg" %}'></a>
+                                    <a href="introProject/{{ project.pid }}" ><img src='{% static "crowdfunding/assets/img/demo/property-1.jpg" %}'></a>
                                 </div>
                                 <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >{{ project.pTitle }} </a></h5>
+                                    <h5><a href="introProject/{{ project.pid }}" >{{ project.pTitle }} </a></h5>
                                     <div class="dot-hr"></div>
                                     {% for i, t in types %}
                                         {%if i == project.pType %}

@@ -4,10 +4,11 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from crowdfunding.forms import RegisterForm
-from .models import CrfProject, CrfUser
+from .models import CrfProject, CrfUser, Contribute
 
 admin.site.register(CrfProject)
 admin.site.register(CrfUser)
+admin.site.register(Contribute)
 
 class CrfUserAdmin(UserAdmin):
     add_form = RegisterForm
