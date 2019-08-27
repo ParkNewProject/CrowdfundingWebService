@@ -2,7 +2,7 @@ import datetime
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from crowdfunding.models import CrfProject, CrfUser
+from crowdfunding.models import CrfProject, CrfUser, Contribute
 
 
 # Create your models here.
@@ -103,7 +103,13 @@ class NewProjectForm(forms.ModelForm):
 
     class Meta:
         model = CrfProject
-        fields = ['pType', 'pImage', 'pTitle', 'pIntro', 'pContext', ]
+        fields = ['pType', 'pImage', 'pTitle', 'pIntro', 'pContext', 'goalcoin', ]
+
+
+class ContributeForm(forms.ModelForm):
+    class Meta:
+        model = Contribute
+        fields = ['contrib_coin', ]
 
 
 class ProjectSearchForm(forms.ModelForm):

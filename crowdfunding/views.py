@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from crowdfunding.models import CrfProject
-from .forms import LoginForm, NewProjectForm, RegisterForm
+from .forms import LoginForm, NewProjectForm, RegisterForm, ContributeForm
 from django.contrib.auth import (
     authenticate,
     login as django_login,
@@ -47,23 +47,23 @@ def showprojects(request):
 
 # 개별 조회
 def detail(request, projectid):
+
     # 아이디로 조회된 프로젝트
-    i_projects = projects.filter(pid=projectid)
-    if i_projects:
+    if projectid:
         logger.info('projectid is ' + projectid)
+        i_projects = projects.filter(pid=projectid)
+        t_projects = projects.filter(pType=i_projects[0].pType)     # 타입(종류)가 같은 추천 프로젝트
+        return render(request, 'crowdfunding/detail.html', {
+            'projectid': projectid,
+            'types': types,
+            'i_projects': i_projects,
+            't_projects': t_projects,
+        })
+
     else:
-        logger.info('i_projects is empty!')
-    # 타입(종류)가 같은 추천 프로젝트
-    t_projects = projects.filter(pType=i_projects[0].pType)
-    if t_projects:
-        logger.info('t_projects is running')
-    else:
-        logger.info('t_projects is empty!')
-    return render(request, 'crowdfunding/detail.html', {
-        'projectid': projectid,
+        return render(request, 'crowdfunding/index.html', {
         'types': types,
-        'i_projects': i_projects,
-        't_projects': t_projects,
+        'projects': projects,
     })
 
 
@@ -76,7 +76,7 @@ def project_id():
     return pid
 
 
-#
+# 새 프로젝트 등록
 def newproject(request):
     if request.method == "POST":
         form = NewProjectForm(request.POST, request.FILES)
@@ -89,6 +89,31 @@ def newproject(request):
     else:
         form = NewProjectForm()
     return render(request, 'crowdfunding/newProject.html', {'form': form})
+
+
+def contribute(request, projectid):
+    if projectid:
+        logger.info('projectid is ' + projectid)
+        c_projects = projects.filter(pid=projectid)
+
+        if request.method == "POST":
+            form = ContributeForm(request.POST, request.FILES)
+            if form.is_valid():
+                post = form.save(commit=False)
+
+                post.contrib_pid = CrfProject.objects.get(pid=projectid)
+                post.contrib_user = request.user
+                post.contrib_coin = form.cleaned_data['contrib_coin']
+
+                #후원 코인 계산
+                request.user.usercoin = request.user.usercoin - post.contrib_coin
+                c_projects[0].nowcoin = c_projects[0].nowcoin + post.contrib_coin
+
+                post.save()
+                return redirect('/detail/'+projectid)
+        else:
+            form = ContributeForm()
+            return render(request, 'crowdfunding/contribute.html', {'form': form})
 
 
 def login(request):

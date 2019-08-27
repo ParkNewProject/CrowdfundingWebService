@@ -75,10 +75,12 @@ class CrfProject(models.Model):
     fin_time = models.DateField(auto_now_add=True, verbose_name='마감일') #마감일 등록 안됨
     cre_time = models.DateField(auto_now_add=True, verbose_name='등록일')
     owned_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='소유주')
-    #목표코인/ 현재 모금코인
+
+    goalcoin = models.IntegerField(default=0, verbose_name='목표 코인')
+    nowcoin = models.IntegerField(default=0, verbose_name='현재 모금 코인')
 
 
 class Contribute(models.Model):
     contrib_user = models.ForeignKey(CrfUser, on_delete=models.CASCADE, default=1, verbose_name='기여자')
-    pid = models.ForeignKey(CrfProject, on_delete=models.CASCADE, null=True, verbose_name='고유번호')
-    #모금한 코인
+    contrib_pid = models.ForeignKey(CrfProject, on_delete=models.CASCADE, null=True, verbose_name='고유번호')
+    contrib_coin = models.IntegerField(default=0, verbose_name='후원 코인')

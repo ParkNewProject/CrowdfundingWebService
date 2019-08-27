@@ -8,6 +8,7 @@ urlpatterns = [
 
     # ex: /introProject/BdJgZDVt
     path('newProject', views.newproject, name='newProject'),
+    path('contribute/<str:projectid>/', views.contribute, name='contribute'),
 
     path('register', views.register, name='register'),
     path('login', views.login, name='login'),
