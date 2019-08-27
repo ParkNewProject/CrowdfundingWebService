@@ -2,6 +2,7 @@
   <dictionary name="OWNER">
     <words>
       <w>changepassword</w>
+      <w>endfor</w>
       <w>introproject</w>
       <w>registerlogin</w>
       <w>showprojects</w>

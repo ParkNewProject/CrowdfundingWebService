@@ -1,8 +1,9 @@
-{% extends 'crowdfunding/base.html' %}
-{% load staticfiles %}
 <head>
     <title> CrowdFUNding | 크라우드 펀딩 </title>
 </head>
+{% extends 'crowdfunding/base.html' %}
+{% load staticfiles %}
+
 
     {% block content %}
 
@@ -48,23 +49,7 @@
                     <div class="proerty-th">
                         {% for project in projects %}
                         <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item" style="min-height: 420px; max-height: 420px">
-                                <div class="item-thumb">
-                                    <a href="property-1.html" ><img src='{% static "crowdfunding/assets/img/demo/property-1.jpg" %}'></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >
-                                        {% for i, t in types %}
-                                        {%if i == project.pType %}<b>[{{ t }}]</b>
-                                        {% endif %}
-                                        {% endfor %}
-                                        {{ project.pTitle }} </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span>{{ project.pIntro }} </span><br>
-                                    <span class="pull-left"><b>{{ project.owned_user }} </b></span><br>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
+                            {% include 'crowdfunding/project_view.html' %}
                         </div>
                         {% endfor %}
 

@@ -1,9 +1,11 @@
-{% extends 'crowdfunding/base.html' %}
-{% load staticfiles %}
-
 <head>
     <title> CrowdFUNding | 크라우드 펀딩 </title>
 </head>
+
+{% extends 'crowdfunding/base.html' %}
+{% load staticfiles %}
+
+
 
     {% block content %}
 
@@ -56,23 +58,7 @@
                         <div id="list-type" class="proerty-th">
                         {% for project in projects %}
                         <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="introProject/{{ project.pid }}" ><img src='{% static "crowdfunding/assets/img/demo/property-1.jpg" %}'></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="introProject/{{ project.pid }}" >{{ project.pTitle }} </a></h5>
-                                    <div class="dot-hr"></div>
-                                    {% for i, t in types %}
-                                        {%if i == project.pType %}
-                                            <span class="pull-left">종류 : {{ t }} </span><br>
-                                        {% endif %}
-                                    {% endfor %}
-                                    <span class="pull-left">소개글 : {{ project.pIntro }} </span><br>
-                                    <span class="pull-left">소유주 : {{ project.owned_user }} </span><br>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
+                            {% include 'crowdfunding/project_view.html' %}
                         </div>
                         {% endfor %}
 

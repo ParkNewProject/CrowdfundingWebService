@@ -1,0 +1,147 @@
+<head>
+    <title> CrowdFUNding | 프로젝트 </title>
+</head>
+
+{% extends 'crowdfunding/base.html' %}
+{% load staticfiles %}
+
+    {% block content %}
+        <div class="page-head">
+            <div class="container">
+                <div class="row">
+                    <div class="page-head-content">
+                        <h1 class="page-title"> {{ i_projects.0.pTitle }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End page header -->
+
+        <!-- property area -->
+        <div class="content-area single-property" style="background-color: #FFF;">&nbsp;
+            <div class="container">
+
+                <div class="clearfix padding-top-40" >
+                    <div class="col-md-12 single-property-content">
+                        <div class="row">
+                            <div class="light-slide-item full-width-sld">
+                                <div class="clearfix">
+                                    <div class="favorite-and-print">
+                                        <a class="add-to-fav" href="#login-modal" data-toggle="modal">
+                                            <i class="fa fa-star-o"></i>
+                                        </a>
+                                        <a class="printer-icon " href="javascript:window.print()">
+                                            <i class="fa fa-print"></i>
+                                        </a>
+                                    </div>
+
+                                    <ul id="fullWidth-gallery" class="gallery list-unstyled cS-hidden">
+                                        <li data-thumb="assets/img/property-1/property1.jpg">
+                                            <img src="assets/img/property-1/property1.jpg" />
+                                        </li>
+                                        <li data-thumb="assets/img/property-1/property2.jpg">
+                                            <img src="assets/img/property-1/property3.jpg" />
+                                        </li>
+                                        <li data-thumb="assets/img/property-1/property3.jpg">
+                                            <img src="assets/img/property-1/property3.jpg" />
+                                        </li>
+                                        <li data-thumb="assets/img/property-1/property4.jpg">
+                                            <img src="assets/img/property-1/property4.jpg" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8" style="background-color: rgb(251, 251, 251);">
+                        <div class="">
+
+                            <div class="single-property-wrapper">
+
+                                <div class="section">
+                                    <h4 class="s-property-title"> <b> {{ i_projects.0.pIntro }} </b> </h4>
+                                    <div class="s-property-content">
+                                        <p>{{ i_projects.0.pContext }}</p>
+                                    </div>
+                                </div>
+                                <!-- End description area  -->
+
+
+                            </div>
+                        </div>
+
+                        <div class="similar-post-section padding-top-40">
+                            <div id="prop-smlr-slide_0">
+                                {% for project in t_projects %}
+                                    {% if project.pid != projectid %}
+                                        {% include 'crowdfunding/project_view.html' %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 p0">
+                        <aside class="sidebar sidebar-property blog-asside-right property-style2">
+                            <div class="dealer-widget">
+                                <div class="dealer-content">
+                                    <div class="inner-wrapper">
+                                        <div class="single-property-header">
+                                            <h1 class="property-title">{{ i_projects.0.pTitle }}</h1>
+                                            <span class="property-price">$825,000</span>
+                                        </div>
+                                        <div class="dealer-section-space">
+                                            <span>Dealer information</span>
+                                        </div>
+                                        <div class="clear">
+                                            <div class="col-md-12  clear">
+                                                <div class="col-xs-10 page-subheader sorting pl0">
+                                                    <ul class="sort-by-list">
+                                                        <li class="">
+                                                            {% if user == i_projects.0.owned_user %}
+                                                                <button class="navbar-btn nav-button wow bounceInRight" onclick=" location.href='/newProject'" >수정하기</button>
+<!--                                                                 <button class="navbar-btn nav-button wow bounceInRight" onclick=" location.href='/newProject'" >수정하기</button>-->
+                                                            {% else %}
+                                                                <button class="navbar-btn nav-button wow bounceInRight login" onclick=" location.href='/newProject'" data-wow-delay="0.3s">후원하기</button>
+                                                            {% endif %}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear">
+                                            <p>이러쿵저러쿵 </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </aside>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    <script>
+            $(document).ready(function () {
+
+                $('#image-gallery').lightSlider({
+                    gallery: true,
+                    item: 1,
+                    thumbItem: 9,
+                    slideMargin: 0,
+                    speed: 500,
+                    auto: true,
+                    loop: true,
+                    onSliderLoad: function () {
+                        $('#image-gallery').removeClass('cS-hidden');
+                    }
+                });
+            });
+        </script>
+
+     {% endblock %}

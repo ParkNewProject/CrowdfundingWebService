@@ -1,0 +1,19 @@
+{% load staticfiles %}
+							<div class="box-two proerty-item">
+                                <div class="item-thumb">
+                                    <a href="/detail/{{ project.pid }}/" ><img src='{% static "crowdfunding/assets/img/demo/property-1.jpg" %}'></a>
+                                </div>
+                                <div class="item-entry overflow">
+                                    <h5><a href="/detail/{{ project.pid }}/" >
+                                        {% for i, t in types %}
+                                            {%if i == project.pType %}
+                                                [{{ t }}]
+                                            {% endif %}
+                                        {% endfor %}
+                                        {{ project.pTitle }} </a></h5>
+                                    <div class="dot-hr"></div>
+                                    <span class="pull-left">소개글 : {{ project.pIntro }} </span><br>
+                                    <span class="pull-left">소유주 : {{ project.owned_user }} </span><br>
+                                    <span class="proerty-price pull-right">$ 300,000</span>
+                                </div>
+                            </div>

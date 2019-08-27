@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from crowdfunding.models import CrfProject
@@ -9,6 +10,9 @@ from django.contrib.auth import (
     logout as django_logout)
 from django.urls import reverse
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 types = (
     ('G', '게임'),
@@ -18,25 +22,52 @@ types = (
 )
 projects = CrfProject.objects.all()
 
+
+# 메인 화면
 def index(request):
-    return render(request, 'crowdfunding/index.html', {'projects': projects})
+    return render(request, 'crowdfunding/index.html', {
+        'types': types,
+        'projects': projects,
+    })
 
 
+# 프로젝트 조회 화면
 def showprojects(request):
     qproject = projects
-    q = request.GET.get('q', '')            # q 내용 또는 빈 문자열
+    q = request.GET.get('q', '')  # q 내용 또는 빈 문자열
     if q:
-        qproject = projects.filter(pTitle__icontains=q).order_by('cre_time')     # 제목에 q 포함 필터링
+        qproject = projects.filter(pTitle__icontains=q).order_by('cre_time')  # 제목에 q 포함 필터링
 
     return render(request, 'crowdfunding/showProjects.html', {
+        'types': types,
         'projects': qproject,
         'q': q,
     })
 
-def introproject(request, projectid):
-    project = projects.filter(pid=projectid)
-    return render(request, 'crowdfunding/introProject.html', {'project': project})
 
+# 개별 조회
+def detail(request, projectid):
+    # 아이디로 조회된 프로젝트
+    i_projects = projects.filter(pid=projectid)
+    if i_projects:
+        logger.info('projectid is ' + projectid)
+    else:
+        logger.info('i_projects is empty!')
+    # 타입(종류)가 같은 추천 프로젝트
+    t_projects = projects.filter(pType=i_projects[0].pType)
+    if t_projects:
+        logger.info('t_projects is running')
+    else:
+        logger.info('t_projects is empty!')
+    return render(request, 'crowdfunding/detail.html', {
+        'projectid': projectid,
+        'types': types,
+        'i_projects': i_projects,
+        't_projects': t_projects,
+    })
+
+
+# 프로젝트 아이디 계산 함수
 def project_id():
     from random import choice
     import string
@@ -44,6 +75,8 @@ def project_id():
     pid = ''.join(arr)
     return pid
 
+
+#
 def newproject(request):
     if request.method == "POST":
         form = NewProjectForm(request.POST, request.FILES)
@@ -79,9 +112,11 @@ def login(request):
     }
     return render(request, 'crowdfunding/login.html', context)
 
+
 def logout(request):
     django_logout(request)
     return redirect(reverse('index'))
+
 
 def register(request):
     if request.method == 'POST':
@@ -98,8 +133,10 @@ def register(request):
     }
     return render(request, 'crowdfunding/register.html', context)
 
+
 def userprofile(request):
     return render(request, 'crowdfunding/userProfile.html')
+
 
 def userprojects(request):
     u_project = projects.filter(owned_user=request.user).order_by('cre_time')
