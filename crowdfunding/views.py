@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from crowdfunding.models import CrfProject
@@ -11,7 +10,6 @@ from django.contrib.auth import (
 from django.urls import reverse
 
 import logging
-
 logger = logging.getLogger(__name__)
 
 types = (
@@ -115,6 +113,8 @@ def contribute(request, projectid):
             form = ContributeForm()
             return render(request, 'crowdfunding/contribute.html', {'form': form})
 
+def edit(request):
+    return render(request, 'crowdfunding/edit.html')
 
 def login(request):
     if request.method == 'POST':

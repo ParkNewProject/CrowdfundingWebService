@@ -1,7 +1,7 @@
 {% load staticfiles %}
 							<div class="box-two proerty-item">
                                 <div class="item-thumb">
-                                    <a href="/detail/{{ project.pid }}/" ><img src='{% static "crowdfunding/assets/img/demo/property-1.jpg" %}'></a>
+                                    <a href="/detail/{{ project.pid }}/" ><img src='{{ project.pImage }}'></a>
                                 </div>
                                 <div class="item-entry overflow">
                                     <h5><a href="/detail/{{ project.pid }}/" >

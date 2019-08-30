@@ -103,7 +103,7 @@
                                                                 <button class="navbar-btn nav-button wow bounceInRight" onclick=" location.href='/newProject'" >수정하기</button>
 <!--                                                                 <button class="navbar-btn nav-button wow bounceInRight" onclick=" location.href='/newProject'" >수정하기</button>-->
                                                             {% else %}
-                                                                <button class="navbar-btn nav-button wow bounceInRight login" onclick=" location.href='/contribute/{{ i_projects.0.pid }}'" data-wow-delay="0.3s">후원하기</button>
+                                                                <button class="navbar-btn nav-button wow bounceInRight login" onclick=" location.href='/detail/{{ i_projects.0.pid }}/contribute/'" data-wow-delay="0.3s">후원하기</button>
                                                             {% endif %}
                                                         </li>
                                                     </ul>
