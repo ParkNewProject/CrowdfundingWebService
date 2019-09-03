@@ -63,14 +63,12 @@ class CrfUser(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         return self.is_superuser
 
-def user_path(instance, filename):
-    return filename
 class CrfProject(models.Model):
     pType = models.CharField(max_length=2, choices=TYPE, default='G', verbose_name='종류')
     pid = models.CharField(max_length=10, primary_key=True, verbose_name='고유번호')
     pTitle = models.CharField(max_length=30, verbose_name='제목')
 
-    pImage = models.ImageField(default='/media/default.jpg', upload_to=pid+'/'+user_path , verbose_name='이미지')  #이미지 업로드 & 조회가 안됨
+    pImage = models.ImageField(null=True, upload_to='', verbose_name='이미지')
     pIntro = models.CharField(max_length=50, null=True, verbose_name='소개글')
     pContext = models.TextField(null=True, verbose_name='본문')
 
