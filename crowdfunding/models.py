@@ -9,13 +9,13 @@ from .choices import *
 
 
 class CrfUserManager(BaseUserManager):
-    def create_user(self, user_id, username, email, password):
+    def create_user(self, user_id, user_name, email, password):
         if not user_id:
             raise ValueError('ID Required!')
 
         user = self.model(
             user_id=user_id,
-            username=username,
+            user_name=user_name,
             email=email,
         )
 
@@ -26,8 +26,8 @@ class CrfUserManager(BaseUserManager):
     def create_superuser(self, user_id, password):
         user = self.create_user(
             user_id=user_id,
-            username='username',
-            email='park@email.com',
+            user_name='user',
+            email='user@email.com',
             password=password,
         )
 
@@ -39,7 +39,7 @@ class CrfUserManager(BaseUserManager):
 
 class CrfUser(AbstractBaseUser, PermissionsMixin):
     user_id = models.CharField(max_length=16, unique=True, verbose_name='아이디')
-    username = models.CharField(max_length=30, verbose_name='유저 이름')
+    user_name = models.CharField(max_length=30, verbose_name='유저 이름')
     email = models.EmailField(max_length=50, verbose_name='이메일')
     usercoin = models.IntegerField(default=0, verbose_name='유저 코인')
 
@@ -51,13 +51,13 @@ class CrfUser(AbstractBaseUser, PermissionsMixin):
     objects = CrfUserManager()
 
     def __str__(self):
-        return self.username
+        return self.user_id
 
     def get_user_id(self):
         return self.user_id
 
-    def get_username(self):
-        return self.username
+    def get_user_name(self):
+        return self.user_name
 
     @property
     def is_staff(self):

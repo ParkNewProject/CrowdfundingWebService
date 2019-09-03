@@ -17,7 +17,7 @@ class RegisterForm(UserCreationForm):
             }
         )
     )
-    username = forms.CharField(
+    user_name = forms.CharField(
         label='이름',
         widget=forms.TextInput(
             attrs={
@@ -56,7 +56,7 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = CrfUser
-        fields = ('user_id', 'username', 'email')
+        fields = ('user_id', 'user_name', 'email')
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')

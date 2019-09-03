@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from crowdfunding.models import CrfProject
@@ -75,6 +76,7 @@ def project_id():
     return pid
 
 # 새 프로젝트 등록
+@login_required
 def newproject(request):
     if request.method == "POST":
         form = NewProjectForm(request.POST, request.FILES)
@@ -95,7 +97,7 @@ def newproject(request):
         form = NewProjectForm()
     return render(request, 'crowdfunding/newProject.html', {'form': form})
 
-
+@login_required
 def contribute(request, projectid):
     projects = CrfProject.objects.all()
     if projectid:
@@ -121,9 +123,10 @@ def contribute(request, projectid):
             form = ContributeForm()
             return render(request, 'crowdfunding/contribute.html', {'form': form, 'projectid': projectid})
 
+@login_required
 def edit(request, projectid):
-    print('projectid:'+projectid+'!!!!!!!!!!!!!!!!!!!!!!')
-    edit_proj = NewProjectForm.objects.get(pid=projectid)
+    print('projectid:'+projectid)
+    edit_proj = CrfProject.objects.get(pid=projectid)
 
     if request.method == "POST":
         form = NewProjectForm(request.POST, request.FILES)
@@ -143,12 +146,11 @@ def edit(request, projectid):
         form = NewProjectForm(instance=edit_proj)
         context = {
             'form': form,
-            'writing': True,
-            'now': 'edit',
             'projectid': projectid,
         }
         return render(request, 'crowdfunding/edit.html', context)
 
+@login_required
 def delete(request, projectid):
     delete_proj = CrfProject.objects.get(pid=projectid)
     delete_proj.delete()
@@ -175,7 +177,7 @@ def login(request):
     }
     return render(request, 'crowdfunding/login.html', context)
 
-
+@login_required
 def logout(request):
     django_logout(request)
     return redirect(reverse('index'))
@@ -195,11 +197,11 @@ def register(request):
     }
     return render(request, 'crowdfunding/register.html', context)
 
-
+@login_required
 def userprofile(request):
     return render(request, 'crowdfunding/userProfile.html')
 
-
+@login_required
 def userprojects(request):
     projects = CrfProject.objects.all()
     u_project = projects.filter(owned_user=request.user).order_by('cre_time')

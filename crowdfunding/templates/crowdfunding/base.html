@@ -74,7 +74,7 @@
                         <li class="wow fadeInDown" data-wow-delay="0.1.5s"><a class="" href="/showProjects">프로젝트</a></li>
                         <li class="dropdown ymm-sw " data-wow-delay="0.24s">
                             {% if user.is_active %}
-                            <a href="/userProfile" class="" data-toggle="dropdown" data-hover="dropdown" data-delay="200">{{ user.get_username }} <b class="caret"></b></a>
+                            <a href="/userProfile" class="" data-toggle="dropdown" data-hover="dropdown" data-delay="200">{{ user.get_user_name }} <b class="caret"></b></a>
                             {% endif %}
                             <ul class="dropdown-menu navbar-nav">
 

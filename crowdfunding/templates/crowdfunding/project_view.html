@@ -12,8 +12,10 @@
                                         {% endfor %}
                                         {{ project.pTitle }} </a></h5>
                                     <div class="dot-hr"></div>
-                                    <span class="pull-left">소개글 : {{ project.pIntro }} </span><br>
-                                    <span class="pull-left">소유주 : {{ project.owned_user }} </span><br>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
+                                    <span class="pull-left">{{ project.pIntro }} </span><br>
+                                    <span class="pull-left"><small>등록자: {{ project.owned_user.user_name }}</small></span><br>
+                                    <br>
+                                    <b>
+                                    <span class="proerty-price pull-right"><b> {{ project.nowcoin }}</b> /  {{ project.goalcoin }}</span></b>
                                 </div>
                             </div>
