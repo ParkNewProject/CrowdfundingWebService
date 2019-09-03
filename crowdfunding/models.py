@@ -68,7 +68,7 @@ class CrfProject(models.Model):
     pid = models.CharField(max_length=10, primary_key=True, verbose_name='고유번호')
     pTitle = models.CharField(max_length=30, verbose_name='제목')
 
-    pImage = models.ImageField(null=True, upload_to='', verbose_name='이미지')
+    pImage = models.ImageField(default='default.jpg', upload_to='', verbose_name='이미지')
     pIntro = models.CharField(max_length=50, null=True, verbose_name='소개글')
     pContext = models.TextField(null=True, verbose_name='본문')
 

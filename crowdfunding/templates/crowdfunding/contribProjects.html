@@ -13,7 +13,7 @@
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
-                        <h1 class="page-title">당신이 등록한 프로젝트</h1>
+                        <h1 class="page-title">당신이 후원한 프로젝트</h1>
                     </div>
                 </div>
             </div>
@@ -30,12 +30,14 @@
                         <div class="section">
                             <div id="list-type" class="proerty-th-list">
                                 <div class="col-md-4 p0">
-                                    {% for project in u_project %}
-                                        {% include 'crowdfunding/my_project_view.html' %}
-                                    {% endfor %}
+                                    {% for project in c_project %}
+                                        {% include 'crowdfunding/project_view.html' %}
+                                    <div class="dealer-action pull-right">
 
+                                    </div>
                                         </div>
                                     </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                             </div>

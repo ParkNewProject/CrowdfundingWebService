@@ -17,4 +17,5 @@ urlpatterns = [
 
     path('userProfile', views.userprofile, name='userProfile'),
     path('userProjects', views.userprojects, name='userProjects'),
+    path('contribProjects', views.contribprojects, name='contribProjects'),
 ]

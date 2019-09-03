@@ -1,7 +1,7 @@
 {% load staticfiles %}
-							<div class="box-two proerty-item" style="height:430px">
+							<div class="box-two proerty-item" >
                                 <div class="item-thumb">
-                                    <a href="/detail/{{ project.pid }}/" ><img style="height:150px" src='{{ project.pImage.url }}'></a>
+                                    <a href="/detail/{{ project.pid }}/" ><img src='{{ project.pImage.url }}'></a>
                                 </div>
                                 <div class="item-entry overflow">
                                     <h5><a href="/detail/{{ project.pid }}/" >
@@ -18,4 +18,8 @@
                                     <b>
                                     <span class="proerty-price pull-right"><b> {{ project.nowcoin }}</b> /  {{ project.goalcoin }}</span></b>
                                 </div>
+                                <div class="dealer-action pull-right" >
+                                        <a href="/detail/{{ project.pid }}/edit/" class="button">수정 </a>
+                                        <a href="/detail/{{ project.pid }}/delete/" class="button delete_user_car">삭제</a>
+                                    </div>
                             </div>

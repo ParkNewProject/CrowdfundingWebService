@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from crowdfunding.models import CrfProject
+from crowdfunding.models import CrfProject, Contribute
 from .forms import LoginForm, NewProjectForm, RegisterForm, ContributeForm
 from django.contrib.auth import (
     authenticate,
@@ -23,7 +23,7 @@ types = (
 
 # 메인 화면
 def index(request):
-    projects = CrfProject.objects.all()
+    projects = CrfProject.objects.all().order_by('cre_time')
     return render(request, 'crowdfunding/index.html', {
         'types': types,
         'projects': projects,
@@ -32,7 +32,7 @@ def index(request):
 
 # 프로젝트 조회 화면
 def showprojects(request):
-    projects = CrfProject.objects.all()
+    projects = CrfProject.objects.all().order_by('cre_time')
     qproject = projects
     q = request.GET.get('q', '')  # q 내용 또는 빈 문자열
     if q:
@@ -47,7 +47,7 @@ def showprojects(request):
 
 # 개별 조회
 def detail(request, projectid):
-    projects = CrfProject.objects.all()
+    projects = CrfProject.objects.all().order_by('cre_time')
     # 아이디로 조회된 프로젝트
     if projectid:
         logger.info('projectid is ' + projectid)
@@ -99,33 +99,33 @@ def newproject(request):
 
 @login_required
 def contribute(request, projectid):
-    projects = CrfProject.objects.all()
-    if projectid:
-        logger.info('projectid is ' + projectid)
-        c_projects = projects.filter(pid=projectid)
 
-        if request.method == "POST":
-            form = ContributeForm(request.POST, request.FILES)
-            if form.is_valid():
-                post = form.save(commit=False)
+    contrib_proj = CrfProject.objects.get(pid=projectid)
+    if request.method == "POST":
+        form = ContributeForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
 
-                post.contrib_pid = CrfProject.objects.get(pid=projectid)
-                post.contrib_user = request.user
-                post.contrib_coin = form.cleaned_data['contrib_coin']
+            post.contrib_pid = contrib_proj
+            post.contrib_user = request.user
+            post.contrib_coin = form.cleaned_data['contrib_coin']
 
-                #후원 코인 계산 - 안됨
-                request.user.usercoin = request.user.usercoin - post.contrib_coin
-                c_projects[0].nowcoin = c_projects[0].nowcoin + post.contrib_coin
+            #후원 코인 계산
+            request.user.usercoin = request.user.usercoin - post.contrib_coin
+            contrib_proj.nowcoin = contrib_proj.nowcoin + post.contrib_coin
 
-                post.save()
-                return redirect('/detail/'+projectid)
-        else:
-            form = ContributeForm()
-            return render(request, 'crowdfunding/contribute.html', {'form': form, 'projectid': projectid})
+            post.save()
+            contrib_proj.save()
+            request.user.save()
+            return redirect('/detail/'+projectid)
+    else:
+        form = ContributeForm()
+        return render(request, 'crowdfunding/contribute.html', {'form': form, 'projectid': projectid})
 
 @login_required
 def edit(request, projectid):
     print('projectid:'+projectid)
+    #수정할 프로젝트 객체 가져오기
     edit_proj = CrfProject.objects.get(pid=projectid)
 
     if request.method == "POST":
@@ -152,6 +152,7 @@ def edit(request, projectid):
 
 @login_required
 def delete(request, projectid):
+    #삭제할 프로젝트 객체 가져오기
     delete_proj = CrfProject.objects.get(pid=projectid)
     delete_proj.delete()
     return redirect('/showProjects')
@@ -203,6 +204,13 @@ def userprofile(request):
 
 @login_required
 def userprojects(request):
-    projects = CrfProject.objects.all()
+    projects = CrfProject.objects.all().order_by('cre_time')
     u_project = projects.filter(owned_user=request.user).order_by('cre_time')
     return render(request, 'crowdfunding/userProjects.html', {'types': types, 'u_project': u_project})
+
+@login_required
+def contribprojects(request):
+    projects = CrfProject.objects.all().order_by('cre_time')
+    con_pid = Contribute.contrib_pid.filter(contrib_user=request.user)
+    c_project = projects.filter(pid=str(con_pid)).order_by('cre_time')
+    return render(request, 'crowdfunding/contribProjects.html', {'types': types, 'c_project': c_project})
