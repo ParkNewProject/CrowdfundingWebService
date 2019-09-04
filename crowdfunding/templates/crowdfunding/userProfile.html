@@ -11,7 +11,7 @@
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
-                        <h1 class="page-title">Hello : <span class="orange strong">{{ user.get_username }}</span></h1>
+                        <h1 class="page-title">Hello : <span class="orange strong"><b>{{ user.get_user_name }}</b></span></h1>
                     </div>
                 </div>
             </div>
@@ -19,16 +19,14 @@
         <!-- End page header -->
 
         <!-- property area -->
-        <div class="content-area user-profiel" style="background-color: #FCFCFC;">&nbsp;
+        <div class="content-area user-profile" style="background-color: #FCFCFC;">&nbsp;
             <div class="container">
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 profiel-container">
 
-                        <form action="" method="">
                             <div class="profiel-header">
                                 <h3> 프로필 수정 / 조회<br> </h3>
                                      <h5 style="text-align: center "><small>당신의 회원 정보를 작성해주세요!</small> </h5>
-
                                 <hr>
                             </div>
 
@@ -42,43 +40,24 @@
                                         <h6>Choose Picture</h6>
                                     </div>
                                 </div>
-
                                 <div class="col-sm-3 padding-top-25">
-
-                                    <div class="form-group">
-                                        <label>유저 이름 <small>(필수)</small></label>
-                                        <input name="name" type="text" class="form-control" placeholder="Andrew...">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>이메일 </label>
-                                        <input name="email" type="email" class="form-control" placeholder="andrew@email.com">
-                                    </div>
+                                  <form action="" method="post">
+                                    {% csrf_token %}
+                                      {{form.as_p}}
+                                      <b>보유 코인 : </b><br>
+                                      {{user_self.usercoin}}
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn"> 수정 </button>
+                                            <button type="button" onclick="location.href='/charge'" class="btn btn-default"> 코인 충전 </button>
+                                        </div>
+                                  </form>
                                 </div>
-                                <div class="col-sm-3 padding-top-25">
-                                    <div class="form-group">
-                                        <label>비밀번호 <small>(필수)</small></label>
-                                        <input name="Password" type="password" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>비밀번호 확인 : <small>(필수)</small></label>
-                                        <input type="password" class="form-control">
-                                    </div>
-                                </div>
-
                             </div>
 
-
-                            <div class="col-sm-5 col-sm-offset-1">
-                                <br>
-                                <input type='button' class='btn btn-finish btn-primary' name='finish' value='Finish' />
-                            </div>
-                            <br>
-                    </form>
-
+                    </div>
                 </div>
-            </div><!-- end row -->
-
+            </div>
         </div>
-    </div>
+
 
      {% endblock %}

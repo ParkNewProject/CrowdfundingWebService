@@ -26,10 +26,12 @@
                 <div style="display: inline-block, margin: 0px 250px 0px 250px">
                     <div class="box-for overflow">
                         <div class="col-md-12 col-xs-12 login-blocks" style="padding: 0px 170px 0px 170px">
-                            <h2>프로젝트 : 이 프로젝트</h2>
+                            <h2>프로젝트 : {{ i_projects.0.pTitle }}</h2>
                             <form action="" method="post" >
                                 {% csrf_token %}
                                     {{ form.as_p }}
+                                <b>보유 코인 : </b><br>
+                                      {{user_self.usercoin}}
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-default"> 등록 </button>
                                 </div>

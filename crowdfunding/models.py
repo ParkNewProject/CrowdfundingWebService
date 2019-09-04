@@ -82,5 +82,13 @@ class CrfProject(models.Model):
 
 class Contribute(models.Model):
     contrib_user = models.ForeignKey(CrfUser, on_delete=models.CASCADE, default=1, verbose_name='기여자')
-    contrib_pid = models.ForeignKey(CrfProject, on_delete=models.CASCADE, null=True, verbose_name='고유번호')
+    contrib_pid = models.ForeignKey(CrfProject, on_delete=models.CASCADE, null=True, verbose_name='프로젝트 고유번호')
     contrib_coin = models.IntegerField(default=0, verbose_name='후원 코인')
+
+
+class Reward(models.Model):
+    rid = models.IntegerField(default=0, verbose_name='리워드번호')
+    rew_Title = models.CharField(max_length=30, verbose_name='리워드이름')
+    rew_Intro = models.CharField(max_length=50, null=True, verbose_name='리워드 소개글')
+    rew_pid = models.ForeignKey(CrfProject, on_delete=models.CASCADE, null=True, verbose_name='프로젝트 고유번호')
+    rew_coin = models.IntegerField(default=0, verbose_name='리워드 가격')

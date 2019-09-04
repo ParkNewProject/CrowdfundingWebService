@@ -112,27 +112,8 @@ class ContributeForm(forms.ModelForm):
         fields = ['contrib_coin', ]
 
 
-class ProjectSearchForm(forms.ModelForm):
-
-    types = (
-        ('G', '게임'),
-        ('A', '예술'),
-        ('F', '패션'),
-        ('C', '캠페인'),
-    )
+class EditForm(forms.ModelForm):
 
     class Meta:
-        model = CrfProject
-        fields = ['pTitle', 'pType']
-        labels = {
-            'pTitle': '제목'
-        }
-        widgets = {
-            'pTitle': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': '제목',
-            }),
-            'pType': forms.Select(attrs={
-                'class': 'form-control'
-            })
-        }
+        model = CrfUser
+        fields = ('user_id', 'user_name', 'email')
